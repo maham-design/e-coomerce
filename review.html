@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift Shop Reviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        header {
+            background-color: #6a0dad;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 30px;
+            height: 30px;
+        }
+
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+
+        .container {
+            padding: 2rem;
+        }
+
+        .review-section {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        .content h2 {
+            color:#6a0dad;
+        }
+
+        .content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .review-form {
+            flex: 1;
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-form h3 {
+            margin-bottom: 1rem;
+            color: #6a0dad;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-group textarea {
+            height: 100px;
+        }
+
+        .form-group button {
+            background-color:#6a0dad ;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #594de3;
+        }
+
+        footer {
+            background-color:#5500a0;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-section {
+            flex: 1;
+            padding: 10px;
+            min-width: 200px;
+        }
+        .footer-section h3 {
+            border-bottom: 2px solid white;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .footer-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .footer-section ul li {
+            .footer-section ul li {
+            margin-bottom: 10px;
+        }
+    }
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .footer-section ul li a:hover {
+            color: #ffcc00;
+            text-decoration: underline;
+        }
+        .social-icons a {
+            margin-right: 15px;
+            font-size: 30px;
+            color: white;
+            text-decoration: none;
+        }
+        .social-icons a:hover {
+            color: #ffcc00;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 20px;
+            border-top: 1px solid white;
+            padding-top: 10px;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.querySelector(".review-form form");
+
+            form.addEventListener("submit", (event) => {
+                event.preventDefault(); // Prevent form submission
+
+                // Get form values
+                const name = document.getElementById("name").value.trim();
+                const email = document.getElementById("email").value.trim();
+                const product = document.getElementById("product").value.trim();
+                const rating = document.getElementById("rating").value;
+                const review = document.getElementById("review").value.trim();
+
+                // Validation
+                if (!name || !email || !product || !review) {
+                    alert("Please fill in all fields.");
+                    return;
+                }
+
+                // Display success message
+                alert("Thank you for your review!\n\n" +
+                    `Name: ${name}\n` +
+                    `Email: ${email}\n` +
+                    `Product: ${product}\n` +
+                    `Rating: ${rating}\n` +
+                    `Review: ${review}`);
+
+                // Clear the form
+                form.reset();
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo" alt="Logo">
+            MN Gift Shop
+        </div>
+        <nav>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="product.html">Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="catagaries.html">catagaries</a></li>
+            <li><a href="review.html">reviews</a></li>
+        </nav>
+        <div class="cart" onclick="toggleCartModal()">
+            🛒 <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="review-section">
+            <div class="content">
+                <h2>What Our Customers Say</h2>
+                <p>At MN Gift Shop, we value the feedback of our customers. Your reviews help us improve our services and offer the best shopping experience possible.</p>
+                <p>Whether you purchased a luxury perfume, a personalized mug, or a handcrafted scarf, we want to hear about your experience. Your insights help us grow and inspire others to shop with confidence.</p>
+                <p>Take a moment to leave a review. It only takes a few minutes, and it means the world to us and our community of gift lovers!</p>
+            </div>
+
+            <div class="review-form">
+                <h3>Leave a Review</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Your Name:</label>
+                        <input type="text" id="name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="product">Product Purchased:</label>
+                        <input type="text" id="product" placeholder="e.g., Luxury Perfume">
+                    </div>
+                    <div class="form-group">
+                        <label for="rating">Rating:</label>
+                        <select id="rating">
+                            <option value="5">5 - Excellent</option>
+                            <option value="4">4 - Very Good</option>
+                            <option value="3">3 - Good</option>
+                            <option value="2">2 - Fair</option>
+                            <option value="1">1 - Poor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="review">Your Review:</label>
+                        <textarea id="review" placeholder="Share your experience..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Submit Review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>About Our Gift Shop</h3>
+            <p>Discover unique and handpicked gifts for every occasion. From personalized items to seasonal collections, we ensure high-quality products and an excellent shopping experience.</p>
+        </div>
+
+        <div class="footer-section">
+            <h3>Customer Service</h3>
+            <ul>
+                <li><a href="#shipping-info">Shipping Information</a></li>
+                <li><a href="#return-policy">Return Policy</a></li>
+                <li><a href="#faq">FAQs</a></li>
+                <li><a href="#contact-us">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <ul>
+                <li>Email: support@giftshop.com</li>
+                <li>Phone: +92 300 9876543</li>
+                <li>Address: Gift Avenue, Lahore</li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                
+                <img src="twitter-icon.png" alt="Gift Shop Logo" width="50px" height="50px">
+                <img src="facebook-icon.png" alt="Gift Shop Logo" width="50px" height="50px">
+                <br>
+                <img src="Capture.png" alt="Gift Shop Logo" width="50px" height="50px">
+                <img src="Capture.png" alt="Gift Shop Logo" width="50px" height="50px">
+            </div>
+        </div>
+    </div>
+    <div class="email-subscription">
+        <h3>Subscribe to Our Newsletter</h3>
+        <input type="email" id="emailInput" placeholder="Enter your email" />
+        <button onclick="subscribeEmail()">Subscribe</button>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2025 Gift Shop. All rights reserved.
+    </div>
+</footer>
+</body>
+</html>

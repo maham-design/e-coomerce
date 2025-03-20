@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MN Gift Shop - Products</title>
+    <style>
+        /* General Reset */
+        body {
+         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #6a0dad;
+            color: white;
+            padding: 1rem 2rem;
+        }
+        header .logo {
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+        }
+        header .logo img {
+            width: 30px;
+            margin-right: 10px;
+        }
+        header h1 {
+            font-size: 1.5rem;
+        }
+
+        header nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        header .cart {
+            position: relative;
+            cursor: pointer;
+        }
+
+        header .cart span {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInGrid 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInGrid {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+
+        .product {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            padding: 1rem;
+            background: #f9f9f9;
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInProduct 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeInProduct {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 1rem;
+        }
+
+        .product h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product p {
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        .product button {
+            background: #6a0dad;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .product button:hover {
+            background: #5a0cab;
+        }
+
+        footer {
+            background-color:#5500a0;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-section {
+            flex: 1;
+            padding: 10px;
+            min-width: 200px;
+        }
+        .footer-section h3 {
+            border-bottom: 2px solid white;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .footer-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .footer-section ul li {
+            .footer-section ul li {
+            margin-bottom: 10px;
+        }
+    }
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .footer-section ul li a:hover {
+            color: #ffcc00;
+            text-decoration: underline;
+        }
+        .social-icons a {
+            margin-right: 15px;
+            font-size: 30px;
+            color: white;
+            text-decoration: none;
+        }
+        .social-icons a:hover {
+            color: #ffcc00;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 20px;
+            border-top: 1px solid white;
+            padding-top: 10px;
+        }
+    
+
+      
+        /* Shopping Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .cart-modal h2 {
+            margin-bottom: 1rem;
+        }
+
+        .cart-modal ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .cart-modal ul li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cart-modal ul li button {
+            background: red;
+            color: white;
+            border: none;
+            padding: 0.3rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .cart-modal .checkout {
+            background: #6a0dad;
+            color: white;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
+            display: block;
+        }
+
+        .cart-modal .close {
+            background: gray;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        
+        <div class="logo">
+            <img src="logo" alt="Logo">
+            MN Gift Shop
+        </div>
+        <nav>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="product.html">Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="catagaries.html">catagaries</a></li>
+            <li><a href="review.html">reviews</a></li>
+        </ul>
+        </nav>
+        <div class="cart" onclick="toggleCartModal()">
+            🛒 <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <div class="products"></div>
+
+    <div class="overlay" onclick="toggleCartModal()"></div>
+
+    <div class="cart-modal">
+        <button class="close" onclick="toggleCartModal()">X</button>
+        <h2>Shopping Cart</h2>
+        <ul id="cart-items"></ul>
+        <button class="checkout">Proceed to Checkout</button>
+    </div>
+
+   <!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>About Our Gift Shop</h3>
+            <p>Discover unique and handpicked gifts for every occasion. From personalized items to seasonal collections, we ensure high-quality products and an excellent shopping experience.</p>
+        </div>
+
+        <div class="footer-section">
+            <h3>Customer Service</h3>
+            <ul>
+                <li><a href="#shipping-info">Shipping Information</a></li>
+                <li><a href="#return-policy">Return Policy</a></li>
+                <li><a href="#faq">FAQs</a></li>
+                <li><a href="#contact-us">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <ul>
+                <li>Email: support@giftshop.com</li>
+                <li>Phone: +92 300 9876543</li>
+                <li>Address: Gift Avenue, Lahore</li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                
+                <img src="twitter-icon.png" alt="Gift Shop Logo" width="50px" height="50px">
+                <img src="facebook-icon.png" alt="Gift Shop Logo" width="50px" height="50px">
+                <br>
+                <img src="Capture.png" alt="Gift Shop Logo" width="50px" height="50px">
+                <img src="Capture.png" alt="Gift Shop Logo" width="50px" height="50px">
+            </div>
+        </div>
+    </div>
+    <div class="email-subscription">
+        <h3>Subscribe to Our Newsletter</h3>
+        <input type="email" id="emailInput" placeholder="Enter your email" />
+        <button onclick="subscribeEmail()">Subscribe</button>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2025 Gift Shop. All rights reserved.
+    </div>
+</footer>
+
+    <script>
+        const products = [
+            { id: 1, name: "Luxury Perfume", price: 55.0, image: "13" },
+            { id: 2, name: "Gift Basket", price: 29.75, image: "7" },
+            { id: 3, name: "Plush Toy", price: 36.0, image: "6.avif" },
+            { id: 4, name: "Handmade Scarf", price: 25.5, image: "14" },
+            { id: 5, name: "Chocolates", price: 12.0, image: "15" },
+            { id: 6, name: "Personalized Mug", price: 15.5, image: "me" },
+            { id: 7, name: "Photo Frame", price: 18.0, image: "24" },
+            { id: 8, name: "Luxury Candle", price: 22.5, image: "10" },
+            { id: 9, name: "Diary & Pen Set", price: 30.0, image: "16" },
+            { id: 10, name: "Designer Watch", price: 75.0, image: "1" },
+            { id: 11, name: "Jewelry Box", price: 40.0, image: "25" },
+            { id: 12, name: "Travel Kit", price: 50.0, image: "17" },
+            { id: 13, name: "Gourmet Basket", price: 60.0, image: "18" },
+            { id: 14, name: "Silk Tie Set", price: 35.0, image: "19" },
+            { id: 15, name: "Artistic Vase", price: 45.0, image: "20" },
+            { id: 16, name: "Perfume", price: 60.0, image: "21" },
+            { id: 17, name: "Decoration piece", price: 35.0, image: "22" },
+            { id: 18, name: "Soft toys ", price: 45.0, image: "23" },
+        ];
+
+        const cart = [];
+
+        function renderProducts() {
+            const productContainer = document.querySelector('.products');
+            productContainer.innerHTML = '';
+            products.forEach(product => {
+                const productHTML = `
+                    <div class="product">
+                        <img src="${product.image}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>$${product.price.toFixed(2)}</p>
+                        <button onclick="addToCart(${product.id})">Add to Cart</button>
+                    </div>
+                `;
+                productContainer.innerHTML += productHTML;
+            });
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const cartItem = cart.find(item => item.id === productId);
+
+            if (cartItem) {
+                cartItem.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+
+            cart.forEach(item => {
+                const cartItemHTML = `
+                    <li>
+                        ${item.name} (${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}
+                        <button onclick="removeFromCart(${item.id})">X</button>
+                    </li>
+                `;
+                cartItems.innerHTML += cartItemHTML;
+            });
+        }
+
+        function removeFromCart(productId) {
+            const cartIndex = cart.findIndex(item => item.id === productId);
+
+            if (cartIndex > -1) {
+                if (cart[cartIndex].quantity > 1) {
+                    cart[cartIndex].quantity--;
+                } else {
+                    cart.splice(cartIndex, 1);
+                }
+            }
+
+            updateCartCount();
+            renderCart();
+        }
+
+        function toggleCartModal() {
+            const modal = document.querySelector('.cart-modal');
+            const overlay = document.querySelector('.overlay');
+            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+            overlay.style.display = overlay.style.display === 'block' ? 'none' : 'block';
+            renderCart();
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>
